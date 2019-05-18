@@ -4,6 +4,21 @@
         <p><%= flash[:notice] %></p>
 		<h2>User info</h2>
 		<%= form_for(@user) do |f| %>
+			<% if @user.errors.any? %>
+              <div id="error_explanation">
+                <h3>
+                  <%= I18n.t("errors.messages.not_saved",
+                             count: @user.errors.count,
+                             resource: @user.class.model_name.human.downcase)
+                   %>
+                </h3>
+                <ul>
+                  <% @user.errors.full_messages.each do |message| %>
+                    <li><%= message %></li>
+                  <% end %>
+                </ul>
+              </div>
+            <% end %>
 		    <dir class="field">
 		    	<label for="user_name">Name</label>
 		    	<%= f.text_field :username, class: "name" %>
