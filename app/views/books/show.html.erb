@@ -1,0 +1,43 @@
+<div class="body">
+	<div class="container">
+		<p class="notice"></p>
+        <p><%= flash[:notice] %></p>
+		<% if @bookn.errors.any? %>
+		  <div id="error_explanation">
+		    <h3>
+		      <%= I18n.t("errors.messages.not_saved",
+		                 count: @bookn.errors.count,
+		                 resource: @bookn.class.model_name.human.downcase)
+		       %>
+		    </h3>
+		    <ul>
+		      <% @bookn.errors.full_messages.each do |message| %>
+		        <li><%= message %></li>
+		      <% end %>
+		    </ul>
+		  </div>
+		<% end %>
+		<div class="row">
+			<%= render 'books/list', book: @bookn, user: @user %>
+			<div class="col-xs-9">
+				<h2>Book detail</h2>
+				<table class="table">
+					<tr>
+						<td>
+							<%= link_to user_path(@user), class: "user_#{@user.id}" do %>
+								<%= attachment_image_tag @user, :image, format: 'jpeg', fallback: "no_image.jpg", size: "40x40" %><br>
+								<%= @user.username %>
+							<% end %>
+						</td>
+						<td><%= link_to @book.title, '#', class: "book_#{@book.id}" %></td>
+						<td><%= @book.opinion %></td>
+					<% if @user.id == current_user.id %>
+						<td><%= link_to 'Edit', edit_book_path(@book.id), class: "btn-sm btn-success edit_book_#{@book.id}" %></td>
+						<td><%= link_to 'Destroy', book_path(@book.id),class: "btn-sm btn-danger destroy_book_#{@book.id}", method: :delete, data: { confirm: '本当に消しますか？'} %></td>
+					<% end %>
+					</tr>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
