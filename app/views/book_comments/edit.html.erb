@@ -1,0 +1,14 @@
+<div class="body">
+	<div class="container">
+		<h2>Comment info</h2>
+		<%= form_for [@book, @comment] do |f| %>
+			<div class="field">
+				<label for="book_comment">Comment</label><br>
+				<%= f.text_area :comment %>
+			</div>
+			<div class="actions">
+				<%= f.submit 'Update Comment' %>
+			</div>
+		<% end %>
+	</div>
+</div>

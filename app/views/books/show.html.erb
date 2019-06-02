@@ -41,8 +41,16 @@
 				<% @book.book_comments.each do |book_comment| %>
 					<table class="table">
 						<tr>
-							<th><%= book_comment.user.username %></th>
-							<th><%= book_comment.comment %></th>
+							<td><%= book_comment.user.username %></td>
+							<td><%= book_comment.comment %></td>
+							<% if book_comment.user.id == current_user.id %>
+								<td>
+									<%= link_to 'Edit', edit_book_book_comment_path(@book, book_comment), class: 'btn-sm btn-success' %>
+								</td>
+								<td>
+									<%= link_to 'Destroy', book_path(@book.id), class: 'btn-sm btn-danger', method: :delete, data: { confirm: '本当に消しますか？' } %>
+								</td>
+							<% end %>
 						</tr>
 					</table>
 				<% end %>
@@ -53,7 +61,7 @@
 						<%= f.text_area :comment %>
 					</div>
 					<div class="actions row">
-						<%= f.submit 'Create Comment' %>
+						<%= f.submit 'Create Comment', class: 'btn btn-primary' %>
 					</div>
 				<%end %>
 			</div>
