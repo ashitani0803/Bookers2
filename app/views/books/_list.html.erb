@@ -1,7 +1,15 @@
 <div class="col-xs-3">
 	<h2>User info</h2>
 	<table class="table">
-		<tr><%= attachment_image_tag @user, :image, format: 'jpeg', fallback: "no_image.jpg", size: "100x100" %></tr>
+		<tr><%= attachment_image_tag @user, :image, format: 'jpeg', fallback: "no_image.jpg", size: "100x100" %>
+			<% unless current_user?(@user) %>
+				<% if current_user.following?(@user) %>
+					<%= render 'unfollow' %>
+				<% else %>
+					<%= render 'follow' %>
+				<% end %>
+			<% end %>
+		</tr>
 		<tr>
 			<th>name</th>
 			<th><%= user.username %></th>
@@ -9,6 +17,19 @@
 		<tr>
 			<th>introduction</th>
 			<th><%= user.introduction %></th>
+		</tr>
+		<tr>
+			<% @user ||= current_user %>
+			<th>
+				<%= link_to following_user_path(@user) do %>
+					<%= @user.followed_users.count %><br> following
+				<% end %>
+			</th>
+			<th>
+				<%= link_to followers_user_path(@user) do %>
+					<%= @user.followers.count %><br> followers
+				<% end %>
+			</th>
 		</tr>
 	</table>
 	<div class="row">
