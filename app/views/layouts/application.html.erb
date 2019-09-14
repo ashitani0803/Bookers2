@@ -7,16 +7,23 @@
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reroad'  %>
+      <link  rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css">
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+      <script src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js", type="text/javascript"></script>
   </head>
 
   <body>
     <header class="navbar navbar-fixed-top navbar-inverse">
     <div class="container">
       <nav class="nav navbar-nav navbar-left">
-        <span>Bookers</span>
+        <span>Bookers</span><br>
       </nav>
       <nav class="nav navbar-nav navbar-right">
         <ul>
+          <li class="glyphicon">
+            <%= link_to 'Search', search_path %>
+          </li>
           <% if user_signed_in? %>
             <li><%= link_to 'Home', user_path(current_user.id), class: 'glyphicon glyphicon-home home' %></li>
             <li><%= link_to 'Users', users_path, class: 'glyphicon glyphicon-user users' %></li>

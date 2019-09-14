@@ -6,6 +6,11 @@ class BooksController < ApplicationController
     @books = Book.all
     @user = current_user
     @book = Book.new
+    @book.user_id = current_user.id
+    respond_to do |format|
+      format.html
+      format.js
+    end
   end
 
   def show
@@ -17,27 +22,29 @@ class BooksController < ApplicationController
   end
 
   def create
-    @books = Book.all
+    #books = Book.allはrender :indexをするとindexアクションを経由せずビューに行くから必要
     @book = Book.new(book_params)
     @book.user_id = current_user.id
     @user = @book.user
-    if @book.save
-      redirect_to book_path(@book.id)
-      flash[:notice] = 'You have created book successfully.'
-    else
-      render :index
+    @books = Book.all
+    respond_to do |format|
+      if @book.save
+        format.html
+        format.js
+      else
+        format.js {render :index}
+      end
     end
   end
-
 
   def edit
     @book = Book.find(params[:id])
   end
 
   def update
-    @book = Book.find(params[:id])
-    if @book.update(book_params)
-      redirect_to book_path(@book.id)
+    book = Book.find(params[:id])
+    if book.update(book_params)
+      redirect_to book_path(book.id)
       flash[:notice] = 'You have updated book successfully.'
     else
       render :edit
@@ -45,9 +52,14 @@ class BooksController < ApplicationController
   end
 
   def destroy
-    @book = Book.find(params[:id])
-    @book.destroy
+    book = Book.find(params[:id])
+    book.destroy
     redirect_to books_path
+  end
+
+  def search
+    @books = Book.search(params[:search], params[:search_select], params[:search_method])
+    @users = User.search(params[:search], params[:search_select], params[:search_method])
   end
 
   private

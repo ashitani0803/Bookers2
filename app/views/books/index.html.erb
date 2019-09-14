@@ -32,20 +32,22 @@
 					</thead>
 					<tbody>
 						<% @books.each do |book| %>
-						<tr>
-							<td>
-								<%= link_to user_path(@user), class: "user_#{@user.id}" do %>
-									<%= attachment_image_tag book.user, :image, format: 'jpeg', fallback: "no_image.jpg", size: "40x40" %>
-								<% end %>
-							</td>
-							<td>
-								 <%= link_to book.title, book_path(book.id), class: "book_#{book.id}" %>
-							</td>
-							<td>
-								<%= book.opinion %>
-							</td>
-						</tr>
+							<tr id="ajax-post">
+						    <td>
+									<%= link_to user_path(@user), class: "user_#{@user.id}" do %>
+										<%= attachment_image_tag book.user, :image, format: 'jpeg', fallback: "no_image.jpg", size: "40x40" %><br>
+										<%= @user.username %>
+									<% end %>
+									<div id="likes_buttons_<%= book.id %>">
+										<%= render 'favorites/like', book: book %>
+									</div>
+								</td><br>
+								<%= render 'book', book: book, favorites: @favorites %>
+							</tr>
 						<% end %>
+
+
+
 					</tbody>
 				</table>
 			</div>

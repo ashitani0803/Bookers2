@@ -32,7 +32,7 @@
 					</thead>
 					<tbody>
 						<% @user.books.each do |book| %>
-						<tr>
+						<tr id="ajax-post">
 							<td>
 								<%= attachment_image_tag @user, :image, format: 'jpeg', fallback: "no_image.jpg", size: "40x40" %>
 							</td>

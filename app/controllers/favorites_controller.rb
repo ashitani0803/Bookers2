@@ -1,17 +1,24 @@
 class FavoritesController < ApplicationController
 
+	before_action :set_variables
+
 	def create
-		book = Book.find(params[:book_id])
-		favorite = current_user.favorites.new(book_id: book.id)
-		favorite.save
-		redirect_to book_path(book)
+		@favorite = Favorite.create(user_id: current_user.id, book_id: params[:book_id])
+		@favorites = Favorite.where(book_id: params[:book_id])
+		@book.reload
 	end
 
 	def destroy
-		book = Book.find(params[:book_id])
-		favorite = current_user.favorites.find_by(book_id: book.id)
+		favorite = Favorite.find_by(user_id: current_user.id, book_id: params[:book_id])
 		favorite.destroy
-		redirect_to book_path(book)
+		@favorites = Favorite.where(book_id: params[:book_id])
+		@book.reload
+	end
+
+	private
+
+	def set_variables
+		@book = Book.find(params[:book_id])
 	end
 
 end

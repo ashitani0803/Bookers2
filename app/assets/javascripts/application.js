@@ -15,3 +15,6 @@
  //= require jquery
  //= require bootstrap-sprockets
  //= require_tree .
+$(document).on('click', '#button', function() {
+	
+})

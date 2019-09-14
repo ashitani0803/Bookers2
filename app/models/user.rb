@@ -29,4 +29,22 @@ class User < ApplicationRecord
   	relationships.find_by(followed_id: other_user.id).destroy
   end
 
+  def self.search(search, search_select, search_method)
+    if search
+      if search_select == "ユーザー"
+        if search_method == '前方一致検索'
+          User.where(['username LIKE ?', "#{search}%", "#{search}%"])
+        elsif search_method == '後方一致検索'
+          User.where(['username LIKE ?', "%#{search}", "%#{search}"])
+        elsif search_method == '完全一致検索'
+          User.where(['username LIKE ?', "#{search}", "#{search}"])
+        elsif search_method == '部分一致検索'
+          User.where(['username LIKE ?', "%#{search}%", "%#{search}%"])
+        end
+      end
+    else
+      User.all
+    end
+  end
+
 end
