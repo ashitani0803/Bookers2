@@ -15,7 +15,7 @@ class BooksController < ApplicationController
 
   def show
     @book = Book.find(params[:id])
-    @user = @book.user
+    @user = User.find(@book.user_id)
     @bookn = Book.new
     @comment = BookComment.new
     @comments = BookComment.all
@@ -57,10 +57,6 @@ class BooksController < ApplicationController
     redirect_to books_path
   end
 
-  def search
-    @books = Book.search(params[:search], params[:search_select], params[:search_method])
-    @users = User.search(params[:search], params[:search_select], params[:search_method])
-  end
 
   private
 

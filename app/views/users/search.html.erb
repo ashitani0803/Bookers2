@@ -1,0 +1,24 @@
+<div class="body">
+	<div class="container">
+		<div class="row">
+			<h2>Search</h2>
+			<%= form_tag search_path, method: 'get' do %>
+				<%= text_field_tag :search, params[:search] %>
+				<%= select_tag :search_select, options_for_select([['選択して下さい', '選択して下さい'], ['ユーザー', 'ユーザー'], ['投稿', '投稿']]) %>
+				<%= select_tag :search_method, options_for_select([['選択して下さい', '選択して下さい'], ['前方一致', '前方一致'], ['後方一致', '後方一致'], ['完全一致', '完全一致'], ['部分一致', '部分一致']]) %>
+				<%= submit_tag 'Search' %>
+			<% end %>
+			<% if params[:search_select] == 'ユーザー' %>
+				<%= render 'search_user', users: @users %>
+			<% end %>
+
+			<% if params[:search_select] == '投稿' %>
+				<%= render 'search_book', users: @users %>
+			<% end %>
+
+
+			
+		</div>
+	</div>
+</div>
+

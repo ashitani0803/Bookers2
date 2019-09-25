@@ -31,15 +31,25 @@ class User < ApplicationRecord
 
   def self.search(search, search_select, search_method)
     if search
-      if search_select == "ユーザー"
-        if search_method == '前方一致検索'
-          User.where(['username LIKE ?', "#{search}%", "#{search}%"])
-        elsif search_method == '後方一致検索'
-          User.where(['username LIKE ?', "%#{search}", "%#{search}"])
-        elsif search_method == '完全一致検索'
-          User.where(['username LIKE ?', "#{search}", "#{search}"])
-        elsif search_method == '部分一致検索'
-          User.where(['username LIKE ?', "%#{search}%", "%#{search}%"])
+      if search_select == 'ユーザー'
+        if search_method == '前方一致'
+          User.where(['username LIKE ?', "#{search}%"])
+        elsif search_method == '後方一致'
+          User.where(['username LIKE ?', "%#{search}"])
+        elsif search_method == '完全一致'
+          User.where(['username LIKE ?', "#{search}"])
+        else search_method == '部分一致'
+          User.where(['username LIKE ?', "%#{search}%"])
+        end
+      else
+        if search_method == '前方一致'
+          User.includes(:books).where(['title LIKE ? OR opinion LIKE ?', "#{search}%", "#{search}%"]).references(:book)
+        elsif search_method == '後方一致'
+          User.includes(:books).where(['title LIKE ? OR opinion LIKE ?', "%#{search}", "%#{search}"]).references(:book)
+        elsif search_method == '完全一致'
+          User.includes(:books).where(['title LIKE ? OR opinion LIKE ?', "#{search}", "#{search}"]).references(:book)
+        else search_method == '部分一致'
+          User.includes(:books).where(['title LIKE ? OR opinion LIKE ?', "%#{search}%", "%#{search}%"]).references(:book)
         end
       end
     else

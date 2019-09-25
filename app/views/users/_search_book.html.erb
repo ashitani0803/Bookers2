@@ -1,0 +1,17 @@
+<h2>Books</h2>
+	<table class="table">
+		<thead>
+			<% users.each do |user| %>
+				<% user.books.each do |book| %>
+				<tr>
+					<td>
+						<%= link_to book.title, book_path(book.id), class: "book_#{book.id}" %>
+					</td>
+					<td>
+						<%= book.opinion %>
+					</td>
+				</tr>
+				<% end %>
+			<% end %>
+		</thead>
+	</table>
