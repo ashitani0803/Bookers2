@@ -41,13 +41,10 @@
 									<div id="likes_buttons_<%= book.id %>">
 										<%= render 'favorites/like', book: book %>
 									</div>
-								</td><br>
+								</td>
 								<%= render 'book', book: book, favorites: @favorites %>
 							</tr>
 						<% end %>
-
-
-
 					</tbody>
 				</table>
 			</div>

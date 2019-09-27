@@ -17,17 +17,21 @@
  	@import "bootstrap-sprockets";
  	@import "bootstrap";
 
+ 	@import "slick-theme";
+ 	@import "slick";
 
  *{
  	margin: 0;
  	padding: 0;
  	box-sizing: border-box;
  }
+
  .clearfix::after{
  	content: "";
  	display: block;
  	clear: both;
  }
+
  header{
  	color: white;
  	.navbar-left span{
@@ -35,45 +39,61 @@
  		padding-top: 10px;
  	}
  }
+
  .navbar-right li{
  	float: left;
  	list-style: none;
  }
+
  .glyphicon{
  	color: #9d9d9d;
  	padding: 15px;
  }
+
  .btn{
  	padding: 6px 12px;
  }
+
  .btn-default{
  	color: #333;
  }
+
  p{
  	margin: 0 0 10px;
  	font-size: 13px;
  	line-height: 18px;
  }
+
  .body{
  	margin-top: 51px;
  }
+
  .col-xs-12{
  	width: 100%;
  }
+
  div.field, div.actions{
  	margin-bottom: 10px;
  }
+
  h1 .glyphicon-book, strong{
  	color: #333;
  }
+
  #error_explanation{
  	color: red;
  }
+
 .update-user{
 	padding: 1px 7px 2px;
 }
+
 li{
 	list-style: none;
+}
+
+.slick-prev:before, .slick-next:before{
+	color: #000;
 }
 
 

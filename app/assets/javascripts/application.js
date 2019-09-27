@@ -15,6 +15,11 @@
  //= require jquery
  //= require bootstrap-sprockets
  //= require_tree .
-$(document).on('click', '#button', function() {
-	
-})
+
+$(function() {
+	$('.slider').slick({
+		autoplay: true,
+		autoPlaySpeed: 5000,
+		dots: true,
+	});
+});
